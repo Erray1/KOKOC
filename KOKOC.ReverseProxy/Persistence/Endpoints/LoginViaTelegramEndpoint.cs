@@ -47,7 +47,6 @@ namespace KOKOC.ReverseProxy.Persistence.Endpoints
                 await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                 // После успешной аутентификации редиректим пользователя на основную страницу
-                await context
                 context.Response.Redirect("/");
             });
             return app;

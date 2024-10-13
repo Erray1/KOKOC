@@ -1,6 +1,6 @@
 ﻿using Erray.AssemblyScanning;
 
-namespace KOKOC.ReverseProxy.Application
+namespace KOKOC.Matches.Application
 {
     public class AppAssemblyMark : IServicesRegistrationMark
     {

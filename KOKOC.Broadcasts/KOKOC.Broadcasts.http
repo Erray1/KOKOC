@@ -1,0 +1,6 @@
+@KOKOC.Broadcasts_HostAddress = http://localhost:5076
+
+GET {{KOKOC.Broadcasts_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,7 +1,6 @@
 using KOKOC.ReverseProxy.Application;
 using KOKOC.ReverseProxy.Infrastructure;
 using KOKOC.ReverseProxy.Infrastructure.RolesSeeding;
-using KOKOC.ReverseProxy.Infrastructure.Seeding;
 using KOKOC.ReverseProxy.Persistence.Endpoints;
 using KOKOC.ReverseProxy.Persistence.ServicesRegistration;
 using Microsoft.AspNetCore.Authentication;
@@ -11,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using System.Text;
+using Erray.AssemblyScanning;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,7 +89,7 @@ builder.Services.AddSwaggerGen(opt =>
 });
 
 builder.Services.RegisterIdentityServices();
-builder.Services.ScanAndRegisterServices<AppAssemblyMark>();
+builder.Services.ScanAndRegisterServices<AppAssemblyMark>(null);
 
 var app = builder.Build();
 
