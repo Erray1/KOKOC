@@ -1,6 +1,7 @@
 ﻿
 using Ardalis.Result.AspNetCore;
 using KOKOC.Matches.Domain.Repositories;
+using KOKOC.Matches.Persistence.Contracts.Matches;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KOKOC.Matches.Persistence.Endpoints.Matches
@@ -24,7 +25,9 @@ namespace KOKOC.Matches.Persistence.Endpoints.Matches
                 }
                 if (!prevMonth.HasValue) prevMonth = currentMonth.Value;
                 var result = await calendar.GetMatchesForMonth(currentMonth.Value, prevMonth.Value);
-                return result.ToMinimalApiResult();
+                if (!result.IsSuccess) return result.ToMinimalApiResult();
+
+                return Results.Ok(CalendarDto.FromEntity(result.Value));
             });
         }
     }

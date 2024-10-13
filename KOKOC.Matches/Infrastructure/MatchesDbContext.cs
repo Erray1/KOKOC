@@ -11,15 +11,16 @@ namespace KOKOC.Matches.Infrastructure
         public DbSet<Team> Teams { get; set; }
         public DbSet<League> Leagues { get; set; }
         public DbSet<Stadium> Stadiums { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder builder)
-        {
-            base.OnConfiguring(builder);
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        //{
+        //    base.OnConfiguring(builder);
+        //}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Match>(cfg =>
             {
+                cfg.HasIndex(x => x.StartingAt);
                 cfg.HasKey(e => e.Id);
                 cfg.HasOne(e => e.Stadium)
                     .WithMany()
@@ -33,7 +34,8 @@ namespace KOKOC.Matches.Infrastructure
                     .WithMany()
                     .HasForeignKey(e => e.LeagueId);
 
-                cfg.ComplexProperty(e => e.Score);
+                cfg.ComplexProperty(e => e.Score)
+                .IsRequired();
             });
             builder.Entity<Team>(cfg =>
             {

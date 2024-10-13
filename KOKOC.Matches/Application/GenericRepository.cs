@@ -1,12 +1,13 @@
 ﻿using Ardalis.Result;
+using Erray.ServicesScanning;
 using KOKOC.Matches.Domain;
-using KOKOC.Matches.Domain.Entities;
 using KOKOC.Matches.Domain.Repositories;
 using KOKOC.Matches.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace KOKOC.Matches.Application
 {
+    [SuppressAutomaticRegistration]
     public class GenericRepository<TEntity, TKey> : IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
     {
@@ -57,7 +58,7 @@ namespace KOKOC.Matches.Application
             var entities = await _dbContext
                 .Set<TEntity>()
                 .ToListAsync();
-            return entities is null ? Result.NotFound() : entities;
+            return entities is null || entities.Count == 0 ? Result.NotFound() : entities;
         }
 
         public async Task<Result<TEntity>> GetAsync(TKey id)
